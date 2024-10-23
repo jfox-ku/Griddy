@@ -34,6 +34,7 @@ namespace Grid
         public void RemoveElement(GridTileElement element)
         {
             Elements.Remove(element.ElementIndex);
+            element.Parent = null;
         }
 
         public GridTileElement GetElement(int index)
@@ -43,6 +44,15 @@ namespace Grid
                 return null;
             }
             return Elements[index];
+        }
+        
+        public T GetElement<T>(int index) where T : GridTileElement
+        {
+            if (!Elements.ContainsKey(index))
+            {
+                return null;
+            }
+            return Elements[index] as T;
         }
 
         // Converts the dictionary to a serializable list format
