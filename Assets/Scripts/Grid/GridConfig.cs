@@ -8,5 +8,11 @@ namespace Grid
     {
         public Vector2Int MaxGridBounds;
         public Vector2Int StartingBounds;
+        
+        public GameObject GridTilePrefab;
+
+        public Color EmptyTileColor;
+        public Color UsedTileColor;
+        
     }
 }

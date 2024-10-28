@@ -7,13 +7,24 @@ namespace Grid
     [Serializable]
     public class GridTile
     {
+        public static Action<GridTile, GridTileElement> OnElementAddedGlobal;
+        public static Action<GridTile, GridTileElement> OnElementRemovedGlobal;
+        public Action<GridTileElement> OnElementAdded;
+        public Action<GridTileElement> OnElementRemoved;
+
         [NonSerialized]
         public Dictionary<int, GridTileElement> Elements = new Dictionary<int, GridTileElement>();
 
         [SerializeField]
         private List<GridTileElement> serializedElements = new List<GridTileElement>();
+        
+        public GridTile()
+        {
+            OnElementAdded = null;
+            OnElementRemoved = null;
+        }
 
-        public void AddElement(GridTileElement element, bool replace = false)
+        public void AddElement(GridTileElement element, bool replace = true)
         {
             var e = GetElement(element.ElementIndex);
             if (e != null)
@@ -29,12 +40,16 @@ namespace Grid
             }
             element.Parent = this;
             Elements.Add(element.ElementIndex, element);
+            OnElementAdded?.Invoke(element);
+            OnElementAddedGlobal?.Invoke(this, element);
         }
 
         public void RemoveElement(GridTileElement element)
         {
             Elements.Remove(element.ElementIndex);
             element.Parent = null;
+            OnElementRemoved?.Invoke(element);
+            OnElementRemovedGlobal?.Invoke(this, element);
         }
 
         public GridTileElement GetElement(int index)

@@ -8,11 +8,9 @@ namespace Grid
 
         public Vector2Int Value;
         
-        public GridTileElement_Position(Vector2Int pos)
+        public GridTileElement_Position(Vector2Int pos, GridTile parent) : base(parent)
         {
-            Parent = null;
             Value = pos;
-
         }
         
     }

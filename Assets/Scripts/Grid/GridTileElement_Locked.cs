@@ -4,9 +4,9 @@ namespace Grid
     {
         public override int ElementIndex => (int) GridTileElementID.Locked;
         
-        public GridTileElement_Locked()
+        public GridTileElement_Locked(GridTile parent) : base(parent)
         {
-            Parent = null;
+          
         }
         
     }

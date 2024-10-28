@@ -9,12 +9,18 @@ namespace Root
     {
         GridConfig config;
         GridBase grid;
+
+        public Transform TilesParent;
         
         private void Awake()
         {
             config = GridConfig.Instance;
             
+            GridTile.OnElementAddedGlobal = null;
+            GridTile.OnElementRemovedGlobal = null;
+            
             GameEvents.OnGameInitialized.AddListener(Order.EARLY, CreateGrid);
+            GameEvents.OnGameInitialized.AddListener(Order.DEFAULT_ORDER, SetupGridTileViews);
             GameEvents.OnGameInitialized.AddListener(Order.LATE, SetUpLocked);
         }
 
@@ -22,6 +28,26 @@ namespace Root
         {
             grid = new Grid.GridBase(config.MaxGridBounds.x, config.MaxGridBounds.y);
             Debug.Log("Grid created! Center coordinate: " + grid.CenterCoordinate.ToString());
+            
+            
+        }
+
+        private void SetupPositions()
+        {
+            foreach (var (x, y, tile) in grid)
+            {
+               tile.SetPosition(new Vector2Int(x,y));
+            }
+        }
+
+        private void SetupGridTileViews()
+        {
+            foreach (var (x, y, tile) in grid)
+            {
+                var newObj = Instantiate(config.GridTilePrefab, TilesParent);
+                var tileView = newObj.GetComponent<GridTileView>();
+                grid.Grid[x, y].SetView(tileView);
+            }
         }
 
         private void SetUpLocked()
@@ -29,14 +55,18 @@ namespace Root
             var centerCoor = grid.CenterCoordinate;
             var unlockedLowerBounds = centerCoor - (config.StartingBounds/2);
             var unlockedUpperBounds = centerCoor + (config.StartingBounds/2);
-            for (int i = 0; i < config.MaxGridBounds.x; i++)
+            
+            foreach (var (x, y, tile) in grid)
             {
-                for (int j = 0; j < config.MaxGridBounds.y; j++)
+                var inXBounds = x > unlockedLowerBounds.x && x < unlockedUpperBounds.x;
+                var inYBounds = y > unlockedLowerBounds.y && y < unlockedUpperBounds.y;
+                if(inXBounds && inYBounds)
                 {
-                    if(i>unlockedLowerBounds.x && i<unlockedUpperBounds.x && j>unlockedLowerBounds.y && j<unlockedUpperBounds.y)
-                    {
-                        grid.Grid[i, j].AddElement(new GridTileElement_Locked());
-                    }
+                    grid.Grid[x, y].SetLocked(false);
+                }
+                else
+                {
+                    grid.Grid[x, y].SetLocked(true);
                 }
             }
         }

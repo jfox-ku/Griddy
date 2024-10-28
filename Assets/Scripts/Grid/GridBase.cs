@@ -1,11 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Grid
 {
     [Serializable]
-    public class GridBase
+    public class GridBase : IEnumerable<(int x, int y, GridTile tile)>
     {
         public GridTile[,] Grid;
         
@@ -45,6 +46,8 @@ namespace Grid
             return pos.x >= 0 && pos.x < Grid.GetLength(0) && pos.y >= 0 && pos.y < Grid.GetLength(1);
         }
         
+        
+        
         public GridBase(int width, int height)
         {
             Grid = new GridTile[width, height];
@@ -53,10 +56,23 @@ namespace Grid
                 for (int y = 0; y < height; y++)
                 {
                     Grid[x, y] = new GridTile();
-                    Grid[x, y].SetPosition(new Vector2Int(x,y));
-                    Grid[x, y].AddElement(new GridTileElement_Position(new Vector2Int(x,y)));
                 }
             }
         }
+        
+        // Custom iterator
+        public IEnumerator<(int x, int y, GridTile tile)> GetEnumerator()
+        {
+            for (int x = 0; x < Grid.GetLength(0); x++)
+            {
+                for (int y = 0; y < Grid.GetLength(1); y++)
+                {
+                    yield return (x, y, Grid[x, y]);
+                }
+            }
+        }
+
+        // Required for non-generic IEnumerator implementation
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
