@@ -1,4 +1,5 @@
 using DefaultNamespace.Helpers;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Grid
@@ -13,6 +14,12 @@ namespace Grid
 
         public Color EmptyTileColor;
         public Color UsedTileColor;
+
+#if UNITY_EDITOR
+        
+        [HorizontalLine(height: 2f, color: EColor.Blue)]
+        public GUIStyle TileStyle;
+#endif
         
     }
 }

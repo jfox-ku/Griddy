@@ -12,6 +12,10 @@ namespace Grid
         {
             Value = pos;
         }
-        
+
+        public override string ToString()
+        {
+            return base.ToString() + " Value: " + Value.ToString();
+        }
     }
 }

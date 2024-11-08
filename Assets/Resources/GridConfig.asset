@@ -12,8 +12,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b33c9b796e4a0cb270cd68dd43a428, type: 3}
   m_Name: GridConfig
   m_EditorClassIdentifier: 
-  MaxGridBounds: {x: 9, y: 9}
+  MaxGridBounds: {x: 5, y: 5}
   StartingBounds: {x: 3, y: 3}
-  GridTilePrefab: {fileID: 0}
-  EmptyTileColor: {r: 0, g: 0, b: 0, a: 0}
-  UsedTileColor: {r: 0, g: 0, b: 0, a: 0}
+  GridTilePrefab: {fileID: 6866337312984110655, guid: 7be5ad4140ab7e74994379e4f231968b, type: 3}
+  EmptyTileColor: {r: 1, g: 1, b: 1, a: 0.5058824}
+  UsedTileColor: {r: 0.28518865, g: 0.425, b: 0.26863205, a: 0.58431375}
+  TileStyle:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: ef40b00a83f7bd34f84851386b3321f0, type: 3}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0.053057194, b: 1, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 0
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0

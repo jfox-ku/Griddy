@@ -11,6 +11,11 @@ namespace Grid
         {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent), "Parent GridTile cannot be null.");
         }
-        
+
+        public override string ToString()
+        {
+            GridTileElementID Type = (GridTileElementID) ElementIndex;
+            return Type.ToString();
+        }
     }
 }

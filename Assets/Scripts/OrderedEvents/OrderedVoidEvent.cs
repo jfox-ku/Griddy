@@ -44,5 +44,18 @@ namespace Features.OrderedEvents
                 action.Value?.Invoke();
             }
         }
+        
+        public bool IsEmpty => _actions.Count == 0;
+
+        public override string ToString()
+        {
+            string output = $"<color=#03fc13>OrderedVoidEvent with {_actions.Count} actions.</color>";
+            foreach (var action in _actions)
+            {
+                output += $"<color=#03ebfc>\nIndex: {action.Key} Action: {action.Value.Method.Name}</color>";
+            }
+
+            return output;
+        }
     }
 }

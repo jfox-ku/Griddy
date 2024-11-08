@@ -20,7 +20,8 @@ namespace Root
             GridTile.OnElementRemovedGlobal = null;
             
             GameEvents.OnGameInitialized.AddListener(Order.EARLY, CreateGrid);
-            GameEvents.OnGameInitialized.AddListener(Order.DEFAULT_ORDER, SetupGridTileViews);
+            GameEvents.OnGameInitialized.AddListener(Order.DEFAULT_ORDER-10, SetupGridTileViews);
+            GameEvents.OnGameInitialized.AddListener(Order.DEFAULT_ORDER, SetupPositions);
             GameEvents.OnGameInitialized.AddListener(Order.LATE, SetUpLocked);
         }
 
@@ -28,8 +29,6 @@ namespace Root
         {
             grid = new Grid.GridBase(config.MaxGridBounds.x, config.MaxGridBounds.y);
             Debug.Log("Grid created! Center coordinate: " + grid.CenterCoordinate.ToString());
-            
-            
         }
 
         private void SetupPositions()
@@ -45,6 +44,7 @@ namespace Root
             foreach (var (x, y, tile) in grid)
             {
                 var newObj = Instantiate(config.GridTilePrefab, TilesParent);
+                newObj.name = $"Tile {x},{y}";
                 var tileView = newObj.GetComponent<GridTileView>();
                 grid.Grid[x, y].SetView(tileView);
             }
@@ -61,8 +61,7 @@ namespace Root
                 var inXBounds = x > unlockedLowerBounds.x && x < unlockedUpperBounds.x;
                 var inYBounds = y > unlockedLowerBounds.y && y < unlockedUpperBounds.y;
                 if(inXBounds && inYBounds)
-                {
-                    grid.Grid[x, y].SetLocked(false);
+                { grid.Grid[x, y].SetLocked(false);
                 }
                 else
                 {

@@ -17,7 +17,8 @@ public class GameRoot : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(Instance);
+            Instance = this;
         }
     }
 
@@ -32,8 +33,9 @@ public class GameRoot : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        GameEvents.ResetAll();
     }
+    
 #if UNITY_EDITOR
     [HorizontalLine(2f,EColor.Blue)]
     [ReadOnly]
@@ -66,6 +68,17 @@ public class GameRoot : MonoBehaviour
     public void SendRoundFailEvent()
     {
         GameEvents.OnRoundFail.Invoke();
+    }
+    
+    [Button()]
+    public void PrintGameEvents()
+    {
+        Debug.Log("Game Initialized: " + GameEvents.OnGameInitialized);
+        Debug.Log("Game Start: " + GameEvents.OnGameStart);
+        Debug.Log("Game End: " + GameEvents.OnGameEnd);
+        Debug.Log("Round Start: " + GameEvents.OnRoundStart);
+        Debug.Log("Round Complete: " + GameEvents.OnRoundComplete);
+        Debug.Log("Round Fail: " + GameEvents.OnRoundFail);
     }
 #endif
 

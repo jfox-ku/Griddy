@@ -102,5 +102,27 @@ namespace Grid
             gridTile.AfterDeserialization();
             return gridTile;
         }
+
+        public override string ToString()
+        {
+            var output = $"TileInfo: ElementCount: {Elements.Count.ToString()}";
+            foreach (var element in Elements.Values)
+            {
+                output += "\n - " +element.ToString();
+            }
+
+            return output;
+        }
+
+        public string ToStringWithColor()
+        {
+            var output = $"<color=#03fc13>TileInfo: ElementCount: {Elements.Count.ToString()}</color>";
+            foreach (var element in Elements.Values)
+            {
+                output += "<color=#03ebfc> - \n" +element.ToString() + " </color>";
+            }
+
+            return output;
+        }
     }
 }

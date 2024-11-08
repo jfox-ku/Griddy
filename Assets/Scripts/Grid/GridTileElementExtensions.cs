@@ -72,14 +72,13 @@ namespace Grid
             var e = tile.GetElement<GridTileElement_ViewRef>((int) GridTileElementID.ViewRef);
             if (e != null)
             {
-                e.View = view;
-                view.Tile = tile;
-                return;
+                Debug.LogError("View element already exists in tile.");
             }
-            tile.AddElement(new GridTileElement_ViewRef(view,tile), true);
+
+            var newViewRef = new GridTileElement_ViewRef(view, tile);
+            tile.AddElement(newViewRef);
         }
         
-
         #endregion
     }
 }
