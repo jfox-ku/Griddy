@@ -41,6 +41,11 @@ namespace Grid
             }
             return e.Value;
         }
+
+        public static Vector3 GetWorldPosition(this GridTile tile)
+        {
+            return tile.GetView().transform.position;
+        }
         
         public static void SetPosition(this GridTile tile, Vector2Int pos)
         {
@@ -53,6 +58,70 @@ namespace Grid
             }
             tile.AddElement(new GridTileElement_Position(pos,tile), true);
         }
+        #endregion
+
+        #region Occupant
+
+        public static GridItem.GridItem GetOccupant(this GridTile tile)
+        {
+            var e = tile.GetElement<GridTileElement_Occupied>((int) GridTileElementID.Occupied);
+            if (e == null)
+            {
+                return null;
+            }
+            return e.Value;
+        }
+        
+        public static void SetOccupant(this GridTile tile, GridItem.GridItem occupant)
+        {
+            var e = tile.GetElement<GridTileElement_Occupied>((int) GridTileElementID.Occupied);
+            if (e != null)
+            {
+                Debug.LogError("Tile already occupied.");
+            }
+            tile.AddElement(new GridTileElement_Occupied(occupant,tile), true);
+        }
+
+        #endregion
+
+        #region Hover
+        
+        public static bool IsHovered(this GridTile tile)
+        {
+            var h = tile.GetElement<GridTileElement_Hover>((int) GridTileElementID.Hover);
+            return h != null;
+        }
+        
+        public static void SetHovered(this GridTile tile, GridItem.GridItem item)
+        {
+            var h = tile.GetElement<GridTileElement_Hover>((int)GridTileElementID.Hover);
+            if (h == null)
+            {
+                tile.AddElement(new GridTileElement_Hover(item, tile));
+            }
+        }
+        
+        public static void RemoveHovered(this GridTile tile)
+        {
+            var h = tile.GetElement<GridTileElement_Hover>((int)GridTileElementID.Hover);
+            if (h != null)
+            {
+                tile.RemoveElement(h);
+            }
+        }
+        
+        public static bool IsHoveredSameAsOccupant(this GridTile tile)
+        {
+            var h = tile.GetElement<GridTileElement_Hover>((int) GridTileElementID.Hover);
+            var o = tile.GetElement<GridTileElement_Occupied>((int) GridTileElementID.Occupied);
+            if (h == null || o == null)
+            {
+                return false;
+            }
+            return h.Value == o.Value;
+        }
+        
+
         #endregion
 
         #region ViewRef

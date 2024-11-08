@@ -8,8 +8,8 @@ namespace Grid
         public GridTileElement_ViewRef(GridTileView view, GridTile parent) : base(parent)
         {
             View = view;
-            View.AssignTile(parent);
             Parent = parent;
+            View.AssignTile(Parent);
         }
     }
 }

@@ -4,19 +4,22 @@ using UnityEngine;
 
 namespace Grid.GridItem
 {
+    [Serializable]
     public class GridItem
     {
-        public List<Vector2Int> Span;
-        public List<Vector2Int> EffectSpan;
-        public int Rotation;
+        private GridItemData _data;
         public GridItemView View;
         
-        public int Size => Span.Count;
-        
+        public GridItem(GridItemData data, GridItemView view)
+        {
+            _data = data;
+            View = view;
+            view.SetItem(this);
+        }
         
         public IEnumerable<Vector2Int> PositionsFrom(Vector2Int Origin)
         {
-            foreach (var pos in Span)
+            foreach (var pos in _data.Span)
             {
                 yield return RotatePosition(pos) + Origin;
             }
@@ -24,7 +27,7 @@ namespace Grid.GridItem
         
         public IEnumerable<Vector2Int> EffectPositionsFrom(Vector2Int Origin)
         {
-            foreach (var pos in EffectSpan)
+            foreach (var pos in _data.EffectSpan)
             {
                 yield return RotatePosition(pos) + Origin;
             }
@@ -32,7 +35,7 @@ namespace Grid.GridItem
 
         private Vector2Int RotatePosition(Vector2Int pos)
         {
-            switch (Rotation % 4)
+            switch (_data.Rotation % 4)
             {
                 case 0: // No rotation
                     return pos;
@@ -45,6 +48,15 @@ namespace Grid.GridItem
                 default:
                     throw new ArgumentException("Invalid rotation value");
             }
+        }
+        
+        [Serializable]
+        public class GridItemData
+        {
+            public List<Vector2Int> Span;
+            public List<Vector2Int> EffectSpan;
+            public int Rotation;
+            public int Size => Span.Count;
         }
     }
 }

@@ -13,25 +13,25 @@ namespace Grid
         public SpriteRenderer BaseRenderer;
         public SpriteRenderer OverlayRenderer;
         
-        private GridTile Tile;
+        private GridTile _tile;
         
         public void AssignTile(GridTile tile)
         {
-            Tile = tile;
+            _tile = tile;
             SetupListeners();
         }
 
         public void SetupListeners()
         {
             RemoveListeners();
-            Tile.OnElementAdded += OnElementAdded;
-            Tile.OnElementRemoved += OnElementRemoved;
+            _tile.OnElementAdded += OnElementAdded;
+            _tile.OnElementRemoved += OnElementRemoved;
         }
 
         public void RemoveListeners()
         {
-            Tile.OnElementAdded -= OnElementAdded;
-            Tile.OnElementRemoved -= OnElementRemoved;
+            _tile.OnElementAdded -= OnElementAdded;
+            _tile.OnElementRemoved -= OnElementRemoved;
         }
 
         private void OnElementRemoved(GridTileElement obj)
@@ -68,35 +68,35 @@ namespace Grid
         private float _pointerHoldDuration;
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log("Pointer Down on tile" + Tile.GetPosition());
+            Debug.Log("Pointer Down on tile" + _tile.GetPosition());
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Pointer Click on tile" + Tile.GetPosition());
+            Debug.Log("Pointer Click on tile" + _tile.GetPosition());
         }
 
         public void OnPointerMove(PointerEventData eventData)
         {
-            Debug.Log("Pointer Move on tile" + Tile.GetPosition() + " Position " + eventData.position);
+            Debug.Log("Pointer Move on tile" + _tile.GetPosition() + " Position " + eventData.position);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log("Pointer Up on tile" + Tile.GetPosition());
+            Debug.Log("Pointer Up on tile" + _tile.GetPosition());
         }
         
 #if UNITY_EDITOR
         [Button()]
         public void PrintTileInfo()
         {
-            Debug.Log(Tile.ToStringWithColor());
+            Debug.Log(_tile.ToStringWithColor());
         }
 
         private void OnDrawGizmosSelected()
         {
             
-            Handles.Label(transform.position, Tile.ToString(), GridConfig.Instance.TileStyle);
+            Handles.Label(transform.position, _tile.ToString(), GridConfig.Instance.TileStyle);
         }
 
 #endif
