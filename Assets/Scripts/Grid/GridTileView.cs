@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 namespace Grid
 {
     [SelectionBase]
-    public class GridTileView : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerMoveHandler, IPointerUpHandler 
+    public class GridTileView : MonoBehaviour
     {
         public SpriteRenderer BaseRenderer;
         public SpriteRenderer OverlayRenderer;
@@ -62,29 +62,7 @@ namespace Grid
         {
             OverlayRenderer.color = color;
         }
-
         
-
-        private float _pointerHoldDuration;
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Debug.Log("Pointer Down on tile" + _tile.GetPosition());
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Debug.Log("Pointer Click on tile" + _tile.GetPosition());
-        }
-
-        public void OnPointerMove(PointerEventData eventData)
-        {
-            Debug.Log("Pointer Move on tile" + _tile.GetPosition() + " Position " + eventData.position);
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            Debug.Log("Pointer Up on tile" + _tile.GetPosition());
-        }
         
 #if UNITY_EDITOR
         [Button()]
@@ -95,7 +73,7 @@ namespace Grid
 
         private void OnDrawGizmosSelected()
         {
-            
+            if (!Application.isPlaying) return;
             Handles.Label(transform.position, _tile.ToString(), GridConfig.Instance.TileStyle);
         }
 
